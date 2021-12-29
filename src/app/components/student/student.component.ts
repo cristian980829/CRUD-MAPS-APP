@@ -4,9 +4,12 @@ import * as _ from 'lodash';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { StudentModel } from '../models/student.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { StudentModel } from 'src/app/shared/models/student.model';
+import { StudentService } from 'src/app/shared/services/student.service';
 
-import { StudentService } from '../services/student.service';
 
 @Component({
   selector: 'app-student',
@@ -14,6 +17,11 @@ import { StudentService } from '../services/student.service';
   styleUrls: ['./student.component.css']
 })
 export class StudentComponent implements OnInit {
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
 
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator
@@ -27,7 +35,8 @@ export class StudentComponent implements OnInit {
   isEditMode = false;
 
 
-  constructor( private studentService: StudentService ) { 
+  constructor( private breakpointObserver: BreakpointObserver,
+    private studentService: StudentService ) { 
     this.studentData = {} as StudentModel;
   }
 
@@ -66,9 +75,7 @@ export class StudentComponent implements OnInit {
 
   onSubmit(){
     if(!this.isEditMode){
-      console.log("está entrando")
       this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
-        console.log(response)
         this.dataSource.data = [...this.dataSource.data, response]
         this.cancelEdit();
       })
@@ -86,5 +93,4 @@ export class StudentComponent implements OnInit {
       })
     }
   }
-
 }

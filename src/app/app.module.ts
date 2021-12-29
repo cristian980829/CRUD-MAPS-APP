@@ -39,7 +39,6 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -47,16 +46,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
-import { StudentComponent } from './student/student.component';
-
-
 
 import { ROUTES } from './app.routes';
+import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
+import { StudentComponent } from './components/student/student.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentComponent
+    StudentComponent,
+    ToolbarComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
