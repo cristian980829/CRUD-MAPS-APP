@@ -1,52 +1,91 @@
-<div class="mat-elevation-z8 mt-3">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayoutGap="40px">
+    <div fxFlex="50">
 
-        <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+        <h1 class="mat-display-1">CRUD - Estudiantes</h1>
+        <!-- 
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field> -->
 
-        <!-- Id Column -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Id </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
+        <form (submit)="onSubmit()" #studentForm="ngForm">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" name="name" required [(ngModel)]="studentData.name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Edad" name="age" required [(ngModel)]="studentData.age">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="studentData.mobile">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Email" name="email" required [(ngModel)]="studentData.email">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Dirección" name="address" required [(ngModel)]="studentData.address">
+            </mat-form-field>
+            <ng-container *ngIf="isEditMode; else elseTemplate" matColumnDef="Actions">
+                <button mat-raised-button color="primary">Actualizar</button>&nbsp;
+                <a mat-raised-button color="warn" (click)="cancelEdit()">Cancelar</a>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <button mat-raised-button color="primary">Agregar</button>
+            </ng-template>
+        </form>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
+        <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Age Column -->
-        <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef> Age </th>
-            <td mat-cell *matCellDef="let element"> {{element.age}} </td>
-        </ng-container>
+            <!-- Id Column -->
+            <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
 
-        <!-- Mobile Column -->
-        <ng-container matColumnDef="mobile">
-            <th mat-header-cell *matHeaderCellDef> Mobile </th>
-            <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+            </ng-container>
 
-        <!-- Mobile Column -->
-        <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-        </ng-container>
+            <!-- Age Column -->
+            <ng-container matColumnDef="Age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
+                <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+            </ng-container>
 
-        <!-- Mobile Column -->
-        <ng-container matColumnDef="address">
-            <th mat-header-cell *matHeaderCellDef> Address </th>
-            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-        </ng-container>
+            <!-- Mobile Column -->
+            <ng-container matColumnDef="Mobile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </th>
+                <td mat-cell *matCellDef="let row"> {{row.mobile}} </td>
+            </ng-container>
 
-        <!-- Mobile Column -->
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-        </ng-container>
+            <!-- Email Column -->
+            <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <!-- Address Column -->
+            <ng-container matColumnDef="Address">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="btn-space">
+                        <a mat-raised-button color="accent" (click)="editItem(element)">Editar</a>
+                        <a mat-raised-button color="warn" (click)="deleteItem(element.id)">Eliminar</a>
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{'editable-row': studentData.id === row.id}">
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
 </div>

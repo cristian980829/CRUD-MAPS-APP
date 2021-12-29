@@ -23,7 +23,7 @@ export class StudentComponent implements OnInit {
 
   studentData!: StudentModel;
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ['id','name', 'age', 'mobile', 'email', 'address', 'actions'];
+  displayedColumns: string[] = ['Id','Name', 'Age', 'Mobile', 'Email', 'Address', 'Actions'];
   isEditMode = false;
 
 
@@ -43,26 +43,48 @@ export class StudentComponent implements OnInit {
   getAllStudents(){
     this.studentService.getList().subscribe((response: any) => {
       this.dataSource.data = response;
-      console.log(this.dataSource.data)
     })
   }
 
-  // editItem(el :  any){
-  //   this.studentData = _.cloneDeep(el);
-  //   this.isEditMode = true;
-  // }
+  editItem(el :  any){
+    this.studentData = _.cloneDeep(el);
+    this.isEditMode = true;
+  }
 
-  // cancelEdit(){
-  //   this.isEditMode = false;
-  //   this.studentForm.resetForm();
-  // }
+  cancelEdit(){
+    this.isEditMode = false;
+    this.studentForm.resetForm();
+  }
 
-  // deleteItem(id: string){
-  //   this.studentService.delete(id).subscribe((response: any) => {
-  //     this.dataSource.data = this.dataSource.data.filter((el:any) => {
-  //       return el.id !== id ? el : false;
-  //     })
-  //   })
-  // }
+  deleteItem(id: string){
+    this.studentService.delete(id).subscribe((response: any) => {
+      this.dataSource.data = this.dataSource.data.filter((el:any) => {
+        return el.id !== id ? el : false;
+      })
+    })
+  }
+
+  onSubmit(){
+    if(!this.isEditMode){
+      console.log("está entrando")
+      this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
+        console.log(response)
+        this.dataSource.data = [...this.dataSource.data, response]
+        this.cancelEdit();
+      })
+    }else{
+      this.studentService.update(this.studentData.id, this.studentForm.form.value).subscribe((response: any) => {
+        this.dataSource.data = this.dataSource.data.map((el:any) => {
+          if(el.id!==this.studentData.id){
+            return el;
+          }else{
+             this.studentForm.form.value.id=this.studentData.id;
+             return this.studentForm.form.value;
+          }
+        })
+        this.cancelEdit();
+      })
+    }
+  }
 
 }
