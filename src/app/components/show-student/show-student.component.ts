@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { StudentService } from '../../shared/services/student.service';
 import { StudentModel } from 'src/app/shared/models/student.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-show-student',
@@ -34,17 +35,21 @@ export class ShowStudentComponent implements OnInit {
     if(id){
       this.studentService.getStudent(id).subscribe((response: StudentModel) => {
         this.student = response;
-        console.log(response)
-      })
+      }, err =>{
+      Swal.fire('Error!', 'Hubo un error al cargar el registro', 'error');
+      console.log(err);
+    })
     }else{
       this.router.navigate(['/students']);
     }
   }
 
   onSubmit(){
-    // console.log(this.mobileForm.form.value)
     this.studentService.updateMobile(this.mobileForm.form.value, this.student.id).subscribe((response: any) => {
       this.student.mobile=response.mobile;
+    }, err =>{
+      Swal.fire('Error!', 'Hubo un error al actualizar el teléfono', 'error');
+      console.log(err);
     })
   }
 

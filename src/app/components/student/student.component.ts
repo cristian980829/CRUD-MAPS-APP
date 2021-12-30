@@ -56,6 +56,9 @@ export class StudentComponent implements OnInit {
   getAllStudents(){
     this.studentService.getList().subscribe((response: any) => {
       this.dataSource.data = response;
+    }, err =>{
+      Swal.fire('Error!', 'Hubo un error cargando la información', 'error');
+      console.log(err)
     })
   }
 
@@ -106,7 +109,10 @@ export class StudentComponent implements OnInit {
       this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
         this.dataSource.data = [...this.dataSource.data, response]
         this.cancelEdit();
-      })
+      }, err =>{
+      Swal.fire('Error!', 'Hubo un error al guardar el registro', 'error');
+      console.log(err)
+    })
     }else{
       this.studentForm.form.value.id=this.studentData.id;
       this.studentService.update(this.studentForm.form.value).subscribe((response: any) => {
@@ -119,7 +125,10 @@ export class StudentComponent implements OnInit {
           }
         })
         this.cancelEdit();
-      })
+      }, err =>{
+      Swal.fire('Error!', 'Hubo un error al actualizar el registro', 'error');
+      console.log(err)
+    })
     }
   }
 
