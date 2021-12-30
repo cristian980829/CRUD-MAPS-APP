@@ -1,27 +1,64 @@
-# ApiPrueba
+# PRUEBA TÉCNICA PARA LA EMPRESA ORUSXPERT
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+## CRUD DE ESTUDIANTES, MAPAS, CONSUMO DE SERVICIOS REST
 
-## Development server
+EL PRESENTE PROYECTO TUVO COMO FINALIDAD IMPLEMENTAR UN CRUD CON EL FRAMEWORK ANGULAR, CONSUMIENTO SERVICIOS POR LOS METODOS HTTP (POST, GET, DELETE, PUT, PATCH).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- SE HIZO USO DE LA LIBRERIA JSON-SERVER PARA SIMULAR UN BACKEND.
+- SE USÓ ANGULAR MATERIAL EN EL DISEÑO DE LA INTERFAZ DE LA APLICACIÓN
+- INSTALACIÓN DE ANGULAR GOOGLE MAPS: `https://angular-maps.com/guides/getting-started/`
+- SE OBTUVO LA KEY PARA PODER ACCEDER A LOS COMPONENTES DE LA API DE GOOGLE MAPS EN: `https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key`. PARA ESTO SE DEBE CREAR UN NUEVO PROYECTO Y ADEMÁS HABILITAR ALGUNAS DE LAS OPCIONES QUE SE OFRECEN PARA LA API QUE SON FUNDAMENTALES PARA EL CORRECTO FUNCIONAMIENTO DEL MAPA. COMO LO SON: DIRECTIONS API Y MAPA JAVASCRIPT API.
 
-## Code scaffolding
+### TECNOLOGÍAS
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **LENGUAJE:** JAVASCRIPT
+- **FRAMEWORK:** ANGULAR
+- **LIBRERIAS:** JSON-SERVER, ANGULAR MATERIAL, SWEET ALERT 2, ANGULAR DE GOOGLE MAPS
 
-## Build
+## COMANDOS DE EJECUCIÓN
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+- **INSTALAR DEPENDENCIAS:** UBICARSE EN LA CARPETA DEL PROYECTO E INGRESAR EL COMANDO:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm install
+```
 
-## Running end-to-end tests
+SI SE PRESENTA ALGÚN PROBLEMA AL INSTALAR LAS DEPENDENCIAS PROBAR CON:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+npm install -f
+```
 
-## Further help
+- **RUTA DE EJECUCIÓN DEL SERVIDOR:** UBICARSE EN LA CARPETA ASSETS DEL PROYECTO.
+  EJEMPLO:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+cd C:\Users\crist\Desktop\proyecto_angular\src\assets
+```
+
+- **EJECUTAR SERVIDOR BACKEND:** PARA PONER EN MARCHA EL SERVIDOR INGRESA EN LA RUTA ACTUAL:
+
+```
+json-server --watch data.json
+```
+
+- **EJECUTAR FRONT END:** PARA PONER EN MARCHA EL FRONT END UBICATE DE NUEVO EN LA CARPETA DEL PROYECTO E INGRESA EL COMANDO:
+
+```
+ng serve
+```
+
+## ENDPOINTS
+
+---
+
+ENDPOINTS POR LOS CUALES SE CONSUMIERON LOS SERVICIOS:
+
+- [POST] **CREAR UN ESTUDIANTE:** `localhost:3000/students`
+- [GET] **OBTENER LISTA DE ESTUDIANTES:** `localhost:3000/students`
+- [GET] **OBTENER UN ESTUDIANTE:** `localhost:3000/students/id_estudiante`
+- [PATCH] **ACTUALIZAR TELÉFONO:** `localhost:3000/students/id_estudiante`
+- [PUT] **ACTUALIZAR UN ESTUDIANTE:** `localhost:3000/students/id_estudiante`
+- [DELETE] **ELIMINAR UN ESTUDIANTE:** `localhost:3000/students/id_estudiante`

@@ -10,9 +10,9 @@ import { marker } from 'src/app/shared/models/marker.model';
 
 export class MapComponent {
 
-  public origin: any = '3350 Twig Leaf Ln, Houston, TX 77084, USA';
-  public destination: any = 'Lehigh Valley Railroad Lift Bridge, Newark Bay Bridge, Newark, NJ 07114, USA';
-  public waypoints: any = '';
+  origin: any = '3350 Twig Leaf Ln, Houston, TX 77084, USA';
+  destination: any = 'Lehigh Valley Railroad Lift Bridge, Newark Bay Bridge, Newark, NJ 07114, USA';
+  waypoints: any = '';
 
   // google maps zoom level
   zoom: number = 15;
@@ -59,7 +59,6 @@ export class MapComponent {
   }
   
   deteleMarker(m:marker){
-    console.log(m)
     this.markers = this.markers.filter((el:marker) => {
       if(el.lat!==m.lat && el.lng!==m.lng){
         return el;
@@ -67,7 +66,6 @@ export class MapComponent {
         return false;
       }
     })
-    console.log(this.markers)
   }
 
 }
