@@ -8,7 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout'
+
+import { AgmCoreModule } from '@agm/core';
 
 import { ROUTES } from './app.routes';
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
@@ -27,6 +29,9 @@ import { ShowStudentComponent } from './components/show-student/show-student.com
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAQl_avX96p70QW_5CjZ0nd7EqL5L6-6hA'
+    }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -34,7 +39,9 @@ import { ShowStudentComponent } from './components/show-student/show-student.com
     CommonModule,
     FlexLayoutModule,
     MaterialModule,
-    RouterModule.forRoot( ROUTES )
+
+    RouterModule.forRoot( ROUTES ),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
