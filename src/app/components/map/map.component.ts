@@ -11,13 +11,19 @@ import { marker } from 'src/app/shared/models/marker.model';
 export class MapComponent {
 
   // google maps zoom level
-  zoom: number = 8;
+  zoom: number = 6;
   
   // initial center position for the map
   lat: number = 51.673858;
   lng: number = 7.815982;
 
-
+  paths = [
+      { lat: this.lat,  lng: this.lng+10 },
+      { lat: this.lat,  lng: this.lng+20 },
+      { lat: this.lat+10, lng: this.lng+20 },
+      { lat: this.lat+10, lng: this.lng+10 },
+      { lat: this.lat,  lng: this.lng+10 }
+    ]
   
   mapClicked($event: MouseEvent) {
     this.markers.push({
