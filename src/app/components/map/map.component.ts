@@ -10,13 +10,21 @@ import { marker } from 'src/app/shared/models/marker.model';
 
 export class MapComponent {
 
+  public origin: any = '3350 Twig Leaf Ln, Houston, TX 77084, USA';
+  public destination: any = 'Lehigh Valley Railroad Lift Bridge, Newark Bay Bridge, Newark, NJ 07114, USA';
+  public waypoints: any = '';
+
   // google maps zoom level
-  zoom: number = 6;
+  zoom: number = 15;
   
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
+  lat: number =  29.8174782;
+  lng: number = -95.6814757;
 
+  //markers list
+  markers: marker[] = []
+
+  //polygon paths
   paths = [
       { lat: this.lat,  lng: this.lng+10 },
       { lat: this.lat,  lng: this.lng+20 },
@@ -24,7 +32,20 @@ export class MapComponent {
       { lat: this.lat+10, lng: this.lng+10 },
       { lat: this.lat,  lng: this.lng+10 }
     ]
-  
+
+  ngOnInit() {
+    this.getDirection();
+  }
+
+  getDirection() {
+    this.origin = { lat: 29.8174782, lng: -95.6814757 };
+    this.destination = { lat: 40.6976637, lng: -74.119764 };
+    this.waypoints = [
+       {location: { lat: 39.0921167, lng: -94.8559005 }},
+       {location: { lat: 41.8339037, lng: -87.8720468 }}
+    ];
+  }
+
   mapClicked($event: MouseEvent) {
     this.markers.push({
       lat: $event.coords.lat,
@@ -49,21 +70,4 @@ export class MapComponent {
     console.log(this.markers)
   }
 
-  markers: marker[] = [
-	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  draggable: true
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  draggable: false
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  draggable: true
-	  }
-  ]
 }

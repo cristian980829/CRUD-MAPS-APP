@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout'
 
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 import { ROUTES } from './app.routes';
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
@@ -32,6 +33,7 @@ import { ShowStudentComponent } from './components/show-student/show-student.com
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAQl_avX96p70QW_5CjZ0nd7EqL5L6-6hA'
     }),
+    AgmDirectionModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -39,7 +41,6 @@ import { ShowStudentComponent } from './components/show-student/show-student.com
     CommonModule,
     FlexLayoutModule,
     MaterialModule,
-
     RouterModule.forRoot( ROUTES ),
     
   ],

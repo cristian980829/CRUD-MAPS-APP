@@ -10,15 +10,15 @@
         <agm-info-window>
             <button mat-raised-button color="warn" (click)="deteleMarker(m)">Delete</button>
         </agm-info-window>
-
-
     </agm-marker>
 
-    <agm-circle [latitude]="lat + 0.3" [longitude]="lng" [radius]="50000" [fillColor]="'red'" [circleDraggable]="true"
+    <agm-circle [latitude]="lat + 10" [longitude]="lng" [radius]="200000" [fillColor]="'red'" [circleDraggable]="true"
         [editable]="true">
     </agm-circle>
 
     <agm-polygon [paths]="paths">
     </agm-polygon>
+
+    <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
 
 </agm-map>
