@@ -1,5 +1,6 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayoutGap="40px">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayoutGap="40px" class="animated fadeIn">
     <div fxFlex="50">
+
 
         <h1 class="mat-display-1">CRUD - Estudiantes</h1>
         <!-- 
@@ -7,32 +8,68 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field> -->
 
+        <!-- <form (submit)="onSubmit()" #mobileForm="ngForm">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" name="name" required [(ngModel)]="studentData.name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput matInput placeholder="Edad" name="age" required [(ngModel)]="studentData.age">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="studentData.mobile">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput matInput placeholder="Email" type="email" name="email" required
+                    [(ngModel)]="studentData.email">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput matInput placeholder="Dirección" name="address" required
+                    [(ngModel)]="studentData.address">
+            </mat-form-field>
+            <ng-container *ngIf="isEditMode; else elseTemplate" matColumnDef="Actions">
+                <div class="btn-space">
+                    <button mat-raised-button color="primary">Actualizar</button>
+                    <a mat-raised-button color="warn" (click)="cancelEdit()">Cancelar</a>
+                </div>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <button mat-raised-button color="primary">Agregar</button>
+            </ng-template>
+        </form> -->
+
         <form (submit)="onSubmit()" #studentForm="ngForm">
             <mat-form-field>
                 <input matInput placeholder="Nombre" name="name" required [(ngModel)]="studentData.name">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Edad" name="age" required [(ngModel)]="studentData.age">
+                <input matInput matInput placeholder="Edad" name="age" required [(ngModel)]="studentData.age">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="studentData.mobile">
+                <input matInput matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="studentData.mobile">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Email" name="email" required [(ngModel)]="studentData.email">
+                <input matInput matInput placeholder="Email" type="email" name="email" required
+                    [(ngModel)]="studentData.email">
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Dirección" name="address" required [(ngModel)]="studentData.address">
+                <input matInput matInput placeholder="Dirección" name="address" required
+                    [(ngModel)]="studentData.address">
             </mat-form-field>
             <ng-container *ngIf="isEditMode; else elseTemplate" matColumnDef="Actions">
-                <button mat-raised-button color="primary">Actualizar</button>&nbsp;
-                <a mat-raised-button color="warn" (click)="cancelEdit()">Cancelar</a>
+                <div class="btn-space">
+                    <button mat-raised-button color="primary">Actualizar</button>
+                    <a mat-raised-button color="warn" (click)="cancelEdit()">Cancelar</a>
+                </div>
             </ng-container>
             <ng-template #elseTemplate>
-                <button mat-raised-button color="primary">Agregar</button>
+                <div class="btn-space">
+
+                    <button mat-raised-button color="primary">Agregar</button>
+                </div>
             </ng-template>
         </form>
 
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z9">
 
             <!-- Id Column -->
             <ng-container matColumnDef="Id">
@@ -73,12 +110,35 @@
             <ng-container matColumnDef="Actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button (click)="onStudentClick(element)" mat-menu-item>
+                            <mat-icon>visibility</mat-icon>
+                            <span>Ver</span>
+                        </button>
+                        <button (click)="editItem(element)" mat-menu-item>
+                            <mat-icon>edit</mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button (click)="deleteItem(element.id)" mat-menu-item>
+                            <mat-icon>delete</mat-icon>
+                            <span>Eliminar</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element">
                     <div class="btn-space">
                         <a mat-raised-button color="accent" (click)="editItem(element)">Editar</a>
                         <a mat-raised-button color="warn" (click)="deleteItem(element.id)">Eliminar</a>
                     </div>
                 </td>
-            </ng-container>
+            </ng-container> -->
 
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

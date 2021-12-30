@@ -7,8 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+
 import { StudentModel } from 'src/app/shared/models/student.model';
 import { StudentService } from 'src/app/shared/services/student.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -36,7 +39,8 @@ export class StudentComponent implements OnInit {
 
 
   constructor( private breakpointObserver: BreakpointObserver,
-    private studentService: StudentService ) { 
+    private studentService: StudentService,
+    private router:Router ) { 
     this.studentData = {} as StudentModel;
   }
 
@@ -66,21 +70,47 @@ export class StudentComponent implements OnInit {
   }
 
   deleteItem(id: string){
-    this.studentService.delete(id).subscribe((response: any) => {
-      this.dataSource.data = this.dataSource.data.filter((el:any) => {
-        return el.id !== id ? el : false;
-      })
-    })
+
+    Swal.fire({
+      title: '¿Seguro que desea eliminar este registro?',
+      text: `!No podrá revertir los cambios!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '!Sí, eliminalo!',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire({
+         icon: 'info',
+         text:'Eliminando...',
+         showConfirmButton: false,
+         allowOutsideClick: false
+        });
+        Swal.showLoading();
+        this.studentService.delete(id).subscribe((response: any) => {
+          this.dataSource.data = this.dataSource.data.filter((el:any) => {
+            return el.id !== id ? el : false;
+          })
+          Swal.fire('!Eliminado!', 'El registro ha sido eliminado con exito.', 'success');
+        }, err => {
+          Swal.fire('Error!', 'Hubo un error al eliminar el registro', 'error');
+        })
+      }
+    });
   }
 
   onSubmit(){
     if(!this.isEditMode){
+      console.log(this.studentForm)
       this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
         this.dataSource.data = [...this.dataSource.data, response]
         this.cancelEdit();
       })
     }else{
-      this.studentService.update(this.studentData.id, this.studentForm.form.value).subscribe((response: any) => {
+      this.studentForm.form.value.id=this.studentData.id;
+      this.studentService.update(this.studentForm.form.value).subscribe((response: any) => {
         this.dataSource.data = this.dataSource.data.map((el:any) => {
           if(el.id!==this.studentData.id){
             return el;
@@ -92,5 +122,10 @@ export class StudentComponent implements OnInit {
         this.cancelEdit();
       })
     }
+  }
+
+  onStudentClick(student:StudentModel){
+    console.log(student)
+    this.router.navigate(['/student', student.id]);
   }
 }

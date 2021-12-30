@@ -43,15 +43,21 @@ export class StudentService {
       .pipe(retry(2), catchError(this.handleError))
   }
 
-  //Get all students with GET method
+  //Get one students with GET method
   getStudent(id: string) : Observable<StudentModel>{
     return this.http.get<StudentModel>(this.base_Url + '/' + id)
       .pipe(retry(2), catchError(this.handleError))
   }
 
   //Update student with PUT method
-  update(id: string, item: any) : Observable<StudentModel>{
-    return this.http.put<StudentModel>(this.base_Url + '/' + id, JSON.stringify(item), this.httpOptions)
+  update(item: any) : Observable<StudentModel>{
+    return this.http.put<StudentModel>(this.base_Url + '/' + item.id, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError))
+  }
+
+  //Update student with PATCH method
+  updateMobile(mobile: number, id: string) : Observable<StudentModel>{
+    return this.http.patch<StudentModel>(this.base_Url + '/' + id, JSON.stringify({mobile}), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError))
   }
 
@@ -60,5 +66,6 @@ export class StudentService {
     return this.http.delete<StudentModel>(this.base_Url + '/' + id, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError))
   }
+
 
 }

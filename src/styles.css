@@ -10,6 +10,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn-space {
   display: flex;
   justify-content: space-between;
-
-  width: 100%;
+  margin: 10px 0px 10px 0px;
 }
