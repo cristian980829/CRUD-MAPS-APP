@@ -8,34 +8,7 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field> -->
 
-        <!-- <form (submit)="onSubmit()" #mobileForm="ngForm">
-            <mat-form-field>
-                <input matInput placeholder="Nombre" name="name" required [(ngModel)]="studentData.name">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput matInput placeholder="Edad" name="age" required [(ngModel)]="studentData.age">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="studentData.mobile">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput matInput placeholder="Email" type="email" name="email" required
-                    [(ngModel)]="studentData.email">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput matInput placeholder="Dirección" name="address" required
-                    [(ngModel)]="studentData.address">
-            </mat-form-field>
-            <ng-container *ngIf="isEditMode; else elseTemplate" matColumnDef="Actions">
-                <div class="btn-space">
-                    <button mat-raised-button color="primary">Actualizar</button>
-                    <a mat-raised-button color="warn" (click)="cancelEdit()">Cancelar</a>
-                </div>
-            </ng-container>
-            <ng-template #elseTemplate>
-                <button mat-raised-button color="primary">Agregar</button>
-            </ng-template>
-        </form> -->
+
 
         <form (submit)="onSubmit()" #studentForm="ngForm">
             <mat-form-field>

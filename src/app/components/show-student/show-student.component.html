@@ -1,1 +1,37 @@
-<p>show-student works!</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayoutGap="40px" class="animated fadeIn">
+    <div fxFlex="50">
+        <h1 class="mat-display">Información del estudiante</h1>
+
+        <mat-card class="example-card">
+            <mat-card-title-group>
+                <mat-card-title> {{student.name | uppercase}} </mat-card-title>
+                <mat-card-subtitle> {{student.email}} </mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-content>
+                <h2>Edad</h2>{{student.age}}
+            </mat-card-content>
+            <mat-card-content>
+                <h2>Teléfono</h2>{{student.mobile}}
+            </mat-card-content>
+            <mat-card-content>
+                <h2>Dirección</h2>{{student.address}}
+            </mat-card-content>
+
+        </mat-card>
+
+        <h1 class="mat-display">Actualizar Teléfono</h1>
+        <mat-card class="example-card">
+
+            <form (submit)="onSubmit()" #mobileForm="ngForm">
+                <mat-form-field>
+                    <input matInput matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="mobile">
+                </mat-form-field>
+                <div>
+                    <button ton mat-raised-button color="primary">Actualizar</button>
+
+                </div>
+
+            </form>
+        </mat-card>
+    </div>
+</div>

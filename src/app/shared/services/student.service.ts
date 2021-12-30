@@ -57,7 +57,7 @@ export class StudentService {
 
   //Update student with PATCH method
   updateMobile(mobile: number, id: string) : Observable<StudentModel>{
-    return this.http.patch<StudentModel>(this.base_Url + '/' + id, JSON.stringify({mobile}), this.httpOptions)
+    return this.http.patch<StudentModel>(this.base_Url + '/' + id, JSON.stringify(mobile), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError))
   }
 

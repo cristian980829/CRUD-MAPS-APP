@@ -1,17 +1,9 @@
 {
   "students": [
     {
-      "name": "Jorge",
-      "age": "22",
-      "mobile": "2222222",
-      "email": "jorge@gmail.com",
-      "address": "calle 22",
-      "id": "3"
-    },
-    {
       "name": "cristian daniel morales villada",
       "age": "21",
-      "mobile": "3217763021",
+      "mobile": "999999",
       "email": "cristian980829@gmail.com",
       "address": "calle 10A # 22-66",
       "id": "X3q7aI2"

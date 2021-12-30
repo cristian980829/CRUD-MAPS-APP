@@ -103,7 +103,6 @@ export class StudentComponent implements OnInit {
 
   onSubmit(){
     if(!this.isEditMode){
-      console.log(this.studentForm)
       this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
         this.dataSource.data = [...this.dataSource.data, response]
         this.cancelEdit();
@@ -125,7 +124,6 @@ export class StudentComponent implements OnInit {
   }
 
   onStudentClick(student:StudentModel){
-    console.log(student)
     this.router.navigate(['/student', student.id]);
   }
 }
