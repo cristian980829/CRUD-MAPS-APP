@@ -29,10 +29,11 @@ export class StudentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator
 
+
   @ViewChild('studentForm', { static: false })
   studentForm!: NgForm;
 
-  studentData!: StudentModel;
+  studentData!: any;
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['Id','Name', 'Age', 'Mobile', 'Email', 'Address', 'Actions'];
   isEditMode = false;
@@ -53,12 +54,14 @@ export class StudentComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   getAllStudents(){
     this.studentService.getList().subscribe((response: any) => {
       this.dataSource.data = response;
-    }, err =>{
-      Swal.fire('Error!', 'Hubo un error cargando la información', 'error');
-      console.log(err)
     })
   }
 
@@ -92,45 +95,42 @@ export class StudentComponent implements OnInit {
          allowOutsideClick: false
         });
         Swal.showLoading();
-        this.studentService.delete(id).subscribe((response: any) => {
+        this.studentService.delete(id).subscribe((response: StudentModel) => {
           this.dataSource.data = this.dataSource.data.filter((el:any) => {
             return el.id !== id ? el : false;
           })
           Swal.fire('!Eliminado!', 'El registro ha sido eliminado con exito.', 'success');
-        }, err => {
-          Swal.fire('Error!', 'Hubo un error al eliminar el registro', 'error');
         })
       }
     });
   }
 
-  onSubmit(){
+  onSubmit(form:NgForm){
+    if(form.status==='INVALID'){
+      return;
+    }
     if(!this.isEditMode){
-      this.studentService.save(this.studentForm.form.value).subscribe((response: any) => {
+      this.studentService.save(form.value).subscribe((response: StudentModel) => {
         this.dataSource.data = [...this.dataSource.data, response]
         this.cancelEdit();
-      }, err =>{
-      Swal.fire('Error!', 'Hubo un error al guardar el registro', 'error');
-      console.log(err)
-    })
+      })
     }else{
-      this.studentForm.form.value.id=this.studentData.id;
-      this.studentService.update(this.studentForm.form.value).subscribe((response: any) => {
+      form.value.id=this.studentData.id;
+      this.studentService.update(form.value).subscribe((response: StudentModel) => {
         this.dataSource.data = this.dataSource.data.map((el:any) => {
           if(el.id!==this.studentData.id){
             return el;
           }else{
-             this.studentForm.form.value.id=this.studentData.id;
-             return this.studentForm.form.value;
+             form.value.id=this.studentData.id;
+             return form.value;
           }
         })
         this.cancelEdit();
-      }, err =>{
-      Swal.fire('Error!', 'Hubo un error al actualizar el registro', 'error');
-      console.log(err)
-    })
+      })
     }
   }
+
+
 
   onStudentClick(student:StudentModel){
     this.router.navigate(['/student', student.id]);

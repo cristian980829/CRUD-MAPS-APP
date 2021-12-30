@@ -35,21 +35,19 @@ export class ShowStudentComponent implements OnInit {
     if(id){
       this.studentService.getStudent(id).subscribe((response: StudentModel) => {
         this.student = response;
-      }, err =>{
-      Swal.fire('Error!', 'Hubo un error al cargar el registro', 'error');
-      console.log(err);
-    })
+      })
     }else{
       this.router.navigate(['/students']);
     }
   }
 
-  onSubmit(){
-    this.studentService.updateMobile(this.mobileForm.form.value, this.student.id).subscribe((response: any) => {
+  onSubmit(form:NgForm){
+    if(form.status==='INVALID'){
+      return;
+    }
+    this.studentService.updateMobile(this.mobileForm.form.value, this.student.id).subscribe((response: StudentModel) => {
       this.student.mobile=response.mobile;
-    }, err =>{
-      Swal.fire('Error!', 'Hubo un error al actualizar el teléfono', 'error');
-      console.log(err);
+      this.mobileForm.resetForm();
     })
   }
 

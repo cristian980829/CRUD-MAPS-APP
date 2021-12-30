@@ -22,9 +22,10 @@
         <h1 class="mat-display">Actualizar Teléfono</h1>
         <mat-card class="example-card">
 
-            <form (submit)="onSubmit()" #mobileForm="ngForm">
+            <form (submit)="onSubmit(mobileForm)" #mobileForm="ngForm">
                 <mat-form-field>
-                    <input matInput matInput placeholder="Teléfono" name="mobile" required [(ngModel)]="mobile">
+                    <input matInput matInput placeholder="Teléfono" minlength="7" name="mobile" required
+                        [(ngModel)]="mobile">
                 </mat-form-field>
                 <div>
                     <button ton mat-raised-button color="primary">Actualizar</button>

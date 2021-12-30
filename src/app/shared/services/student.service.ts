@@ -32,7 +32,7 @@ export class StudentService {
   }
 
   //Create student with POST method
-  save(item: any) : Observable<StudentModel>{
+  save(item: StudentModel) : Observable<StudentModel>{
     return this.http.post<StudentModel>(this.base_Url, JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError))
   }
